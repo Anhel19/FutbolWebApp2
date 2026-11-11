@@ -55,8 +55,18 @@ Object oEquipoSelect is a cWebView
             Procedure OnRowClick String sRowId
                 Send NavigatePath
             End_Procedure
+
         End_Object
 
     End_Object
+
+    Procedure OnNavigateForward Handle hoInvokingObject
+        String sLigaID
+        WebGetNavigationValue hoInvokingObject "LigaID" (&sLigaID)
+        If (sLigaID <> "") Begin
+            Set Field_Filter_Value of oEquipoDDO to equipo.LigaID sLigaID
+            Send Rebuild_Constraints of oEquipoDDO
+        End
+    End_Procedure
 
 End_Object
