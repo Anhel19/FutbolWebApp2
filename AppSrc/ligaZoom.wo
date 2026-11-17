@@ -4,6 +4,7 @@ Use cWebForm.pkg
 Use cWebButton.pkg
 Use cligaDataDictionary.dd
 Use equipoSelect.wo
+
 Object oLigaZoom is a cWebView
     Set psCaption to "Liga"
 
@@ -13,42 +14,35 @@ Object oLigaZoom is a cWebView
 
     Object oWebMainPanel is a cWebPanel
         Set piColumnCount to 12
-       
 
         Object oIdForm is a cWebForm
             Entry_Item liga.ID
             Set psCaption to "ID"
             Set piColumnSpan to 3
-        
             Set pbReadOnly to True
         End_Object
 
         Object oNombreForm is a cWebForm
             Entry_Item liga.Nombre
             Set psCaption to "Nombre"
-            
             Set piColumnSpan to 9
-        
         End_Object
 
         Object oPaisForm is a cWebForm
             Entry_Item liga.Pais
             Set psCaption to "Pais"
-           
             Set piColumnSpan to 6
         End_Object
 
         Object oEquiposForm is a cWebForm
             Entry_Item liga.Equipos
             Set psCaption to "Equipos"
-            
             Set piColumnSpan to 3
         End_Object
 
         Object oEquiposMaxForm is a cWebForm
             Entry_Item liga.EquiposMax
-            Set psCaption to "Liga"
-            
+            Set psCaption to "Equipos Max"
             Set piColumnSpan to 3
         End_Object
 
@@ -70,18 +64,25 @@ Object oLigaZoom is a cWebView
                 Send Request_Delete
             End_Procedure
         End_Object
-        Object oEquiposBtn is a cWebButton
-    Set psCaption to "Ver Equipos"
-    Set piColumnSpan to 2
-    WebRegisterPath ntNavigateForward oEquipoSelect
-    Procedure OnClick
-        Send NavigatePath
-    End_Procedure
-End_Object
-       
 
-          End_Object
-          Procedure OnNavigateForward Handle hoInvokingObject
-    
-           End_Procedure
-           End_Object 
+        Object oEquiposBtn is a cWebButton
+            Set psCaption to "Ver Equipos"
+            Set piColumnSpan to 2
+            WebRegisterPath ntNavigateForward oEquipoSelect
+
+            Procedure OnGetNavigateForwardData Handle hoInvokedView
+                WebSetNavigationValue hoInvokedView "LigaID" (SFVal(oLigaDDO, liga.ID))
+            End_Procedure
+
+            Procedure OnClick
+                Send NavigatePath
+            End_Procedure
+        End_Object
+
+    End_Object
+
+    Procedure OnNavigateForward Handle hoInvokingObject
+        // Recibe la navegacion desde ligaSelect
+    End_Procedure
+
+End_Object

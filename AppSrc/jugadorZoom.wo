@@ -3,6 +3,7 @@ Use cWebPanel.pkg
 Use cWebForm.pkg
 Use cWebButton.pkg
 Use cjugadorDataDictionary.dd
+Use posicionSelect.wo
 
 Object oJugadorZoom is a cWebView
     Set psCaption to "Jugador"
@@ -68,6 +69,16 @@ Object oJugadorZoom is a cWebView
 
             Procedure OnClick
                 Send Request_Delete
+            End_Procedure
+        End_Object
+
+        Object oPosicionBtn is a cWebButton
+            Set psCaption to "Ver Posiciones"
+            Set piColumnSpan to 2
+            WebRegisterPath ntNavigateForward oPosicionSelect
+
+            Procedure OnClick
+                Send NavigatePath
             End_Procedure
         End_Object
 
